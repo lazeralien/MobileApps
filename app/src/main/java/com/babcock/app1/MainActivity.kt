@@ -18,9 +18,6 @@ class MainActivity : AppCompatActivity(), NameFragment.OnStringListener {
         //have to add this before using the sharedPref in onCreate
         sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-
-
-
         //swaps between fragments
         findViewById<Button>(R.id.nameButton).setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
@@ -31,7 +28,6 @@ class MainActivity : AppCompatActivity(), NameFragment.OnStringListener {
         }
         findViewById<Button>(R.id.mainPageButton).setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
-
             //Next 5 lines is bundle information of the name to be sent to DisplayFragment
             val sentData = Bundle()
             val name = sharedPref.getString(KEY_NAME, "No Name Yet")
@@ -39,9 +35,9 @@ class MainActivity : AppCompatActivity(), NameFragment.OnStringListener {
             val disFragment = DisplayFragment()
             disFragment.arguments = sentData
 
-                replace(R.id.fl_main, disFragment, "fl_display") //Note this is modified based on bundle above
-                addToBackStack(null)
-                commit()
+            replace(R.id.fl_main, disFragment, "fl_display") //Note this is modified based on bundle above
+            addToBackStack(null)
+            commit()
             }
         }
 
@@ -56,5 +52,23 @@ class MainActivity : AppCompatActivity(), NameFragment.OnStringListener {
         val editor = sharedPref.edit()
         editor.putString(KEY_NAME, str)
         editor.apply()
+
+        //The code below acts the same as selcting "MAIN PAGE" button. it changes to that fragment
+        supportFragmentManager.beginTransaction().apply {
+            //Next 5 lines is bundle information of the name to be sent to DisplayFragment
+            val sentData = Bundle()
+            val name = sharedPref.getString(KEY_NAME, "No Name Yet")
+            sentData.putString("NAME", name)
+            val disFragment = DisplayFragment()
+            disFragment.arguments = sentData
+
+            replace(
+                R.id.fl_main,
+                disFragment,
+                "fl_display"
+            ) //Note this is modified based on bundle above
+            addToBackStack(null)
+            commit()
+        }
     }
 }
