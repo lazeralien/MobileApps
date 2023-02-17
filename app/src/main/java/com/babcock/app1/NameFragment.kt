@@ -2,8 +2,6 @@ package com.babcock.app1
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,8 +24,6 @@ class NameFragment : Fragment() {
     private var firstName: String? = null
     private var middleName: String? = null
     private var lastName: String? = null
-    var retString = "";
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +48,7 @@ class NameFragment : Fragment() {
     }
 
     interface OnStringListener {
-        fun onStringSent(str: String);
+        fun onStringSent(str: String)
     }
 
     override fun onAttach(context: Context) {
@@ -72,14 +68,14 @@ class NameFragment : Fragment() {
 
         submitButton.setOnClickListener {
             //update the first, middle and last name values
-            firstName = mFirstName.getText().toString();
-            middleName = mMiddleName.getText().toString();
-            lastName = mLastName.getText().toString();
+            firstName = mFirstName.getText().toString()
+            middleName = mMiddleName.getText().toString()
+            lastName = mLastName.getText().toString()
 
             //send the return string to interface
             onStringListener.onStringSent(firstName + " " + lastName)
 
-            //Next 4 lines minimze the keyboard
+            //Next 4 lines minimize the keyboard
             val activity = requireActivity()
             val cView = activity.currentFocus
             val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

@@ -28,13 +28,16 @@ class MainActivity : AppCompatActivity(), NameFragment.OnStringListener {
         }
         findViewById<Button>(R.id.mainPageButton).setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
-            //Next 5 lines is bundle information of the name to be sent to DisplayFragment
+            //Next few lines is bundle information of the name to be sent to DisplayFragment
             val sentData = Bundle()
             val name = sharedPref.getString(KEY_NAME, "No Name Yet")
+            //adds name to fragment
             sentData.putString("NAME", name)
+            //updates fragment with the arguments (bundle information)
             val disFragment = DisplayFragment()
             disFragment.arguments = sentData
 
+            //remaining code is normal code to make fragment work
             replace(R.id.fl_main, disFragment, "fl_display") //Note this is modified based on bundle above
             addToBackStack(null)
             commit()
@@ -53,7 +56,7 @@ class MainActivity : AppCompatActivity(), NameFragment.OnStringListener {
         editor.putString(KEY_NAME, str)
         editor.apply()
 
-        //The code below acts the same as selcting "MAIN PAGE" button. it changes to that fragment
+        //The remaining code below acts the same as selcting "MAIN PAGE" button. it changes to that fragment
         supportFragmentManager.beginTransaction().apply {
             //Next 5 lines is bundle information of the name to be sent to DisplayFragment
             val sentData = Bundle()
